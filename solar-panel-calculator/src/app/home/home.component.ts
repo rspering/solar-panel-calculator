@@ -14,15 +14,19 @@ import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 })
 export class HomeComponent {
   checkoutForm = this.formBuilder.group({
-    address: ''
+    address: '',
+    sqft: 0
   });
-  inputData!: string;
+  inputData!: {address: string, sqft: number};
 
   constructor(@Inject(Router) private router: Router, private formBuilder: FormBuilder) {}
 
   onSubmit(): void {
     // Navigate to another page along with the input data
-    this.inputData = this.checkoutForm.value.address!;
-    this.router.navigate(['/results', this.inputData]);
+    this.inputData = {
+      address: this.checkoutForm.value.address!,
+      sqft: this.checkoutForm.value.sqft!
+    };
+    this.router.navigate(['/results', this.inputData.sqft, this.inputData.address]);
   }
 }
