@@ -21,11 +21,11 @@ export class ResultsComponent implements OnInit {
     zoom: 18,
   };
 
-  latitude!: number;
-  powerGenerated!: number;
-  emissionsReduced!: number;
-  costOfInstallation!: number;
-  energySavings!: number;
+  latitude!: number | string;
+  powerGenerated!: number | string;
+  emissionsReduced!: number | string;
+  costOfInstallation!: number | string;
+  energySavings!: number | string;
 
   constructor(private route: ActivatedRoute) {}
   
@@ -54,10 +54,16 @@ export class ResultsComponent implements OnInit {
   }
 
   calculateResults() {
-    this.powerGenerated = calculatePowerGenerated(this.sqft, this.latitude);
-    this.emissionsReduced = calculateEmissionsReduced(this.sqft, this.latitude);
+    this.powerGenerated = calculatePowerGenerated(this.sqft, this.latitude as number);
+    this.emissionsReduced = calculateEmissionsReduced(this.sqft, this.latitude as number);
     this.costOfInstallation = calculateCostOfInstallation(this.sqft);
-    this.energySavings = calculateEnergySavings(this.sqft, this.latitude);
+    this.energySavings = calculateEnergySavings(this.sqft, this.latitude as number);
+
+    //formatting
+    this.powerGenerated = new Intl.NumberFormat().format(this.powerGenerated)
+    this.emissionsReduced = new Intl.NumberFormat().format(this.emissionsReduced)
+    this.costOfInstallation = this.costOfInstallation.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    this.energySavings = this.energySavings.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
   }
 }
 
@@ -78,7 +84,7 @@ const calculatePowerGenerated = (sqft: number, latitude: number): number => {
   // based off 300w solar panel that measures ~15 sqft
   const numberOfPanels = sqft / 15;
   // kWH
-  return 300 * sunlightPerYear(latitude) * numberOfPanels;
+  return 300 * sunlightPerYear(latitude) * numberOfPanels / 1000;
 }
 
 const calculateEmissionsReduced = (sqft: number, latitude: number): number => {
@@ -94,5 +100,5 @@ const calculateCostOfInstallation = (sqft: number): number => {
 
 const calculateEnergySavings = (sqft: number, latitude: number): number => {
   // based on national average cost per kWh
-  return 16.19 * calculatePowerGenerated(sqft, latitude);
+  return 16.19 * calculatePowerGenerated(sqft, latitude) /100;
 }

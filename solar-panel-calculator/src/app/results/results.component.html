@@ -9,11 +9,11 @@
     </div>
     <div class="flex flex-col flex-wrap lg:py-6 -mb-10 lg:w-1/2 lg:pl-12 lg:text-left text-center"> 
       <h2 class="text-white text-4xl title-font font-medium mb-3">Your Results</h2>
-      <app-data-display-field title="Square Footage of Roof" dataValue={{latitude}} unit="square feet"/>
+      <app-data-display-field title="Square Footage of Roof" dataValue={{sqft}} unit="square feet"/>
       <app-data-display-field title="Power Generated Per Year" dataValue={{powerGenerated}} unit="kWh (kilowatts per hour)"/>
       <app-data-display-field title="CO2 Emissions Reduced" dataValue={{emissionsReduced}} unit="g"/>
-      <app-data-display-field title="Estimated Installation Cost" dataValue={{costOfInstallation}} unit="dollars"/>
-      <app-data-display-field title="Estimated Energy Savings" dataValue={{energySavings}} unit="dollars"/>
+      <app-data-display-field title="Estimated Installation Cost" dataValue={{costOfInstallation}}/>
+      <app-data-display-field title="Estimated Energy Savings" dataValue={{energySavings}}/>
     </div>
   </div>
 </section>
