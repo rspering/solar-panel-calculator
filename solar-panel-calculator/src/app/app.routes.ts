@@ -4,5 +4,5 @@ import { ResultsComponent } from './results/results.component';
 
 export const routes: Routes = [
   {'path': '', component: HomeComponent},
-  {'path': 'results/:data/:data', component: ResultsComponent}
+  {'path': 'results/:sqft/:address', component: ResultsComponent}
 ];
