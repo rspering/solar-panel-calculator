@@ -100,5 +100,5 @@ const calculateCostOfInstallation = (sqft: number): number => {
 
 const calculateEnergySavings = (sqft: number, latitude: number): number => {
   // based on national average cost per kWh
-  return 16.19 * calculatePowerGenerated(sqft, latitude) /100;
+  return 16.19 * calculatePowerGenerated(sqft, latitude) / 100;
 }
